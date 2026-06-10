@@ -1,0 +1,101 @@
+# ============================================================
+# robots.txt — Juteberry India Private Limited
+# https://www.juteberry.com
+# ============================================================
+
+# Allow all well-behaved crawlers
+User-agent: *
+Allow: /
+
+# Block admin, private, and internal directories (update paths to match your CMS/server)
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+Disallow: /includes/
+Disallow: /config/
+Disallow: /*.json$
+Disallow: /*.env$
+
+# Block duplicate/filtered URLs (e.g. search result or session parameters)
+Disallow: /*?utm_*
+Disallow: /*?ref=*
+Disallow: /*?session=*
+Disallow: /*?sid=*
+
+# Allow important assets (CSS, JS, images) so Google can render pages
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.webp$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.svg$
+Allow: /*.gif$
+Allow: /*.woff2$
+
+# ── Google ──────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+# ── Bing ────────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+
+# ── Meta / Facebook ─────────────────────────────────────────
+User-agent: facebookexternalhit
+Allow: /
+
+# ── Twitter / X ─────────────────────────────────────────────
+User-agent: Twitterbot
+Allow: /
+
+# ── LinkedIn ────────────────────────────────────────────────
+User-agent: LinkedInBot
+Allow: /
+
+# ── WhatsApp link preview ───────────────────────────────────
+User-agent: WhatsApp
+Allow: /
+
+# ── Block aggressive / AI scraper bots ──────────────────────
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: omgili
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# ── Sitemap location ────────────────────────────────────────
+Sitemap: https://www.juteberry.com/sitemap.xml
+
+# ── Crawl delay (optional, in seconds) ──────────────────────
+# Uncomment if your server is under heavy load:
+# Crawl-delay: 2
