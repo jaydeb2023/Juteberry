@@ -2021,170 +2021,135 @@ Eco Friendly Packaging Europe
 
 </section>
     <script>
-        // Header Scroll Effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            const scrollTop = document.getElementById('scrollTop');
-            
-            if (window.scrollY > 50) {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = 'var(--shadow)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.7)';
-                header.style.boxShadow = 'none';
-            }
-
-            if (window.scrollY > 500) {
-                scrollTop.classList.add('show');
-            } else {
-                scrollTop.classList.remove('show');
-            }
-        });
-
-        // Chat Functions
-        function openChat() {
-            document.getElementById('chatWindow').classList.add('open');
-            document.getElementById('chatInput').focus();
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('header');
+        const scrollTop = document.getElementById('scrollTop');
+        if (window.scrollY > 50) {
+            header.style.background = 'rgba(255,255,255,0.95)';
+            header.style.boxShadow = '0 8px 32px rgba(13,59,42,0.08)';
+        } else {
+            header.style.background = 'rgba(255,255,255,0.7)';
+            header.style.boxShadow = 'none';
         }
-
-        function closeChat() {
-            document.getElementById('chatWindow').classList.remove('open');
+        if (window.scrollY > 500) {
+            scrollTop.classList.add('show');
+        } else {
+            scrollTop.classList.remove('show');
         }
+    });
 
-async function sendMessage() {
-    const input = document.getElementById('chatInput');
-    const msg = input.value.trim();
-    if (!msg) return;
-
-    const chatBody = document.getElementById('chatBody');
-
-    const userMsg = document.createElement('div');
-    userMsg.className = 'msg';
-    userMsg.innerHTML = `<div class="bubble user">${escapeHtml(msg)}</div>`;
-    chatBody.appendChild(userMsg);
-    input.value = '';
-    chatBody.scrollTop = chatBody.scrollHeight;
-
-    const typing = document.createElement('div');
-    typing.className = 'msg';
-    typing.innerHTML = `<div class="bubble bot" style="padding:14px 18px;">
-        <span style="display:inline-flex;gap:5px;align-items:center;">
-            <span style="width:8px;height:8px;background:#0d3b2a;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite 0s"></span>
-            <span style="width:8px;height:8px;background:#0d3b2a;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite 0.2s"></span>
-            <span style="width:8px;height:8px;background:#0d3b2a;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite 0.4s"></span>
-        </span>
-    </div>`;
-    chatBody.appendChild(typing);
-    chatBody.scrollTop = chatBody.scrollHeight;
-
-    try {
-        let sessionId = localStorage.getItem('chatSession');
-        if (!sessionId) {
-            sessionId = Date.now().toString();
-            localStorage.setItem('chatSession', sessionId);
-        }
-
-        const response = await fetch(
-            "https://n8n-evynta.onrender.com/webhook/juteberry-support",
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: msg, session_id: sessionId })
-            }
-        );
-
-        const data = await response.json();
-        typing.remove();
-
-        const reply = data.output || data.message || "Sorry, try again.";
-        const cleanReply = reply.replace(/LEAD_CAPTURED[\s\S]*$/m, '').trim();
-
-        const botMsg = document.createElement('div');
-        botMsg.className = 'msg';
-        botMsg.innerHTML = `<div class="bubble bot">${cleanReply}</div>`;
-        chatBody.appendChild(botMsg);
-
-        if (reply.includes('LEAD_CAPTURED')) {
-            const successMsg = document.createElement('div');
-            successMsg.className = 'msg';
-            successMsg.innerHTML = `
-                <div class="bubble bot" style="background:linear-gradient(135deg,#0d3b2a,#1a5f3d);color:white;border:none;">
-                    ✅ Your enquiry has been saved!<br>
-                    Our export team will contact you within 24 hours. 🌿
-                </div>`;
-            chatBody.appendChild(successMsg);
-        }
-
-        chatBody.scrollTop = chatBody.scrollHeight;
-
-    } catch (error) {
-        typing.remove();
-        const botMsg = document.createElement('div');
-        botMsg.className = 'msg';
-        botMsg.innerHTML = `<div class="bubble bot">Sorry, try again in a moment. 🌿</div>`;
-        chatBody.appendChild(botMsg);
+    function openChat() {
+        document.getElementById('chatWindow').classList.add('open');
+        document.getElementById('chatInput').focus();
     }
-}
 
-        // Show success card if lead captured
-        if (reply.includes('LEAD_CAPTURED')) {
-            const successMsg = document.createElement('div');
-            successMsg.className = 'msg';
-            successMsg.innerHTML = `
-                <div class="bubble bot" style="background:linear-gradient(135deg,#0d3b2a,#1a5f3d);color:white;border:none;">
-                    ✅ Your enquiry has been saved!<br>
-                    Our export team will contact you within 24 hours. 🌿
-                </div>`;
-            chatBody.appendChild(successMsg);
-        }
+    function closeChat() {
+        document.getElementById('chatWindow').classList.remove('open');
+    }
 
+    async function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const msg = input.value.trim();
+        if (!msg) return;
+
+        const chatBody = document.getElementById('chatBody');
+
+        const userMsg = document.createElement('div');
+        userMsg.className = 'msg';
+        userMsg.innerHTML = `<div class="bubble user">${escapeHtml(msg)}</div>`;
+        chatBody.appendChild(userMsg);
+        input.value = '';
         chatBody.scrollTop = chatBody.scrollHeight;
 
-    } catch (error) {
-
-        const botMsg = document.createElement('div');
-        botMsg.className = 'msg';
-
-        botMsg.innerHTML = `
-        <div class="bubble bot">
-            Sorry, our AI assistant is temporarily unavailable.
+        const typing = document.createElement('div');
+        typing.className = 'msg';
+        typing.innerHTML = `<div class="bubble bot" style="padding:14px 18px;">
+            <span style="display:inline-flex;gap:5px;align-items:center;">
+                <span style="width:8px;height:8px;background:#0d3b2a;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite 0s"></span>
+                <span style="width:8px;height:8px;background:#0d3b2a;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite 0.2s"></span>
+                <span style="width:8px;height:8px;background:#0d3b2a;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite 0.4s"></span>
+            </span>
         </div>`;
+        chatBody.appendChild(typing);
+        chatBody.scrollTop = chatBody.scrollHeight;
 
-        chatBody.appendChild(botMsg);
-    }
-}
+        try {
+            let sessionId = localStorage.getItem('chatSession');
+            if (!sessionId) {
+                sessionId = Date.now().toString();
+                localStorage.setItem('chatSession', sessionId);
+            }
 
-        function handleEnter(e) {
-            if (e.key === 'Enter') sendMessage();
-        }
-
-
-
-        function escapeHtml(txt) {
-            const div = document.createElement('div');
-            div.textContent = txt;
-            return div.innerHTML;
-        }
-
-        function openWhatsApp() {
-            const msg = encodeURIComponent('Hi Juteberry! I\'m interested in custom printed jute bags. Please send samples and pricing. MOQ details needed.');
-            window.open(`https://wa.me/918262977784?text=${msg}`, '_blank');
-        }
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Smooth scroll links
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && document.querySelector(href)) {
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+            const response = await fetch(
+                "https://n8n-evynta.onrender.com/webhook/juteberry-support",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: msg, session_id: sessionId })
                 }
-            });
+            );
+
+            const data = await response.json();
+            typing.remove();
+
+            const reply = data.output || data.message || "Sorry, try again.";
+            const cleanReply = reply.replace(/LEAD_CAPTURED[\s\S]*$/m, '').trim();
+
+            const botMsg = document.createElement('div');
+            botMsg.className = 'msg';
+            botMsg.innerHTML = `<div class="bubble bot">${cleanReply}</div>`;
+            chatBody.appendChild(botMsg);
+
+            if (reply.includes('LEAD_CAPTURED')) {
+                const successMsg = document.createElement('div');
+                successMsg.className = 'msg';
+                successMsg.innerHTML = `
+                    <div class="bubble bot" style="background:linear-gradient(135deg,#0d3b2a,#1a5f3d);color:white;border:none;">
+                        ✅ Your enquiry has been saved!<br>
+                        Our export team will contact you within 24 hours. 🌿
+                    </div>`;
+                chatBody.appendChild(successMsg);
+            }
+
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+        } catch (error) {
+            typing.remove();
+            const botMsg = document.createElement('div');
+            botMsg.className = 'msg';
+            botMsg.innerHTML = `<div class="bubble bot">Sorry, try again in a moment. 🌿</div>`;
+            chatBody.appendChild(botMsg);
+        }
+    }
+
+    function handleEnter(e) {
+        if (e.key === 'Enter') sendMessage();
+    }
+
+    function escapeHtml(txt) {
+        const div = document.createElement('div');
+        div.textContent = txt;
+        return div.innerHTML;
+    }
+
+    function openWhatsApp() {
+        const msg = encodeURIComponent('Hi Juteberry! I\'m interested in custom printed jute bags. Please send samples and pricing. MOQ details needed.');
+        window.open(`https://wa.me/918262977784?text=${msg}`, '_blank');
+    }
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && document.querySelector(href)) {
+                e.preventDefault();
+                document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+            }
         });
-    </script>
+    });
+</script>
 </body>
 </html>
