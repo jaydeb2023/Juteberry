@@ -2111,17 +2111,6 @@ async function sendMessage() {
         chatBody.scrollTop = chatBody.scrollHeight;
 
     } catch (error) {
-        typing.remove();
-        const botMsg = document.createElement('div');
-        botMsg.className = 'msg';
-        botMsg.innerHTML = `<div class="bubble bot">Sorry, try again in a moment. 🌿</div>`;
-        chatBody.appendChild(botMsg);
-    }
-}
-
-        chatBody.scrollTop = chatBody.scrollHeight;
-
-    } catch (error) {
 
         const botMsg = document.createElement('div');
         botMsg.className = 'msg';
