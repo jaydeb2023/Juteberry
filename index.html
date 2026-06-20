@@ -2058,13 +2058,23 @@ async function sendMessage() {
 
     const chatBody = document.getElementById('chatBody');
 
-    // Show user message
     const userMsg = document.createElement('div');
     userMsg.className = 'msg';
     userMsg.innerHTML = `<div class="bubble user">${escapeHtml(msg)}</div>`;
     chatBody.appendChild(userMsg);
     input.value = '';
+    chatBody.scrollTop = chatBody.scrollHeight;
 
+    const typing = document.createElement('div');
+    typing.className = 'msg';
+    typing.innerHTML = `<div class="bubble bot" style="padding:14px 18px;">
+        <span style="display:inline-flex;gap:5px;align-items:center;">
+            <span style="width:8px;height:8px;background:#0d3b2a;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite 0s"></span>
+            <span style="width:8px;height:8px;background:#0d3b2a;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite 0.2s"></span>
+            <span style="width:8px;height:8px;background:#0d3b2a;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite 0.4s"></span>
+        </span>
+    </div>`;
+    chatBody.appendChild(typing);
     chatBody.scrollTop = chatBody.scrollHeight;
 
     try {
@@ -2087,14 +2097,34 @@ async function sendMessage() {
         typing.remove();
 
         const reply = data.output || data.message || "Sorry, try again.";
-
-        // Clean LEAD_CAPTURED from user view
         const cleanReply = reply.replace(/LEAD_CAPTURED[\s\S]*$/m, '').trim();
 
         const botMsg = document.createElement('div');
         botMsg.className = 'msg';
         botMsg.innerHTML = `<div class="bubble bot">${cleanReply}</div>`;
         chatBody.appendChild(botMsg);
+
+        if (reply.includes('LEAD_CAPTURED')) {
+            const successMsg = document.createElement('div');
+            successMsg.className = 'msg';
+            successMsg.innerHTML = `
+                <div class="bubble bot" style="background:linear-gradient(135deg,#0d3b2a,#1a5f3d);color:white;border:none;">
+                    ✅ Your enquiry has been saved!<br>
+                    Our export team will contact you within 24 hours. 🌿
+                </div>`;
+            chatBody.appendChild(successMsg);
+        }
+
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+    } catch (error) {
+        typing.remove();
+        const botMsg = document.createElement('div');
+        botMsg.className = 'msg';
+        botMsg.innerHTML = `<div class="bubble bot">Sorry, try again in a moment. 🌿</div>`;
+        chatBody.appendChild(botMsg);
+    }
+}
 
         // Show success card if lead captured
         if (reply.includes('LEAD_CAPTURED')) {
