@@ -2064,19 +2064,7 @@ async function sendMessage() {
     userMsg.innerHTML = `<div class="bubble user">${escapeHtml(msg)}</div>`;
     chatBody.appendChild(userMsg);
     input.value = '';
-    chatBody.scrollTop = chatBody.scrollHeight;
 
-    // Show typing indicator
-    const typing = document.createElement('div');
-    typing.className = 'msg';
-    typing.innerHTML = `<div class="bubble bot" style="padding:14px 18px;">
-        <span style="display:inline-flex;gap:5px;align-items:center;">
-            <span style="width:8px;height:8px;background:#0d3b2a;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite 0s"></span>
-            <span style="width:8px;height:8px;background:#0d3b2a;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite 0.2s"></span>
-            <span style="width:8px;height:8px;background:#0d3b2a;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite 0.4s"></span>
-        </span>
-    </div>`;
-    chatBody.appendChild(typing);
     chatBody.scrollTop = chatBody.scrollHeight;
 
     try {
