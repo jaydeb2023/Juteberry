@@ -2516,7 +2516,7 @@ footer {
 
     const typingEl = jbAddTyping();
 
-    try {
+try {
       const res = await fetch(N8N_WEBHOOK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2527,12 +2527,19 @@ footer {
         })
       });
 
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-
-      const data = await res.json();
+      const text = await res.text();
       typingEl.remove();
 
-      const reply = data.output || data.message || data.text || "Sorry, I couldn't get a response. Please try again. 🌿";
+      let reply = "Thanks for your message! Our export team will contact you within 24 hours. WhatsApp: +91 8262977784 🌿";
+
+      if (text) {
+        try {
+          const data = JSON.parse(text);
+          reply = data.output || data.message || data.text || reply;
+        } catch(e) {
+          console.log('Raw n8n response:', text);
+        }
+      }
 
       // strip LEAD_CAPTURED block from visible reply
       const cleanReply = reply.replace(/LEAD_CAPTURED[\s\S]*$/m, '').trim();
@@ -2548,7 +2555,7 @@ footer {
 
     } catch (err) {
       typingEl.remove();
-      jbAddBot("Sorry, there was a connection issue. Please try again or WhatsApp us at +91 8262977784 🌿");
+      jbAddBot("Thanks for your message! Please WhatsApp us at +91 8262977784 or email info@juteberry.com 🌿");
       console.error('JuteBot error:', err);
     }
 
