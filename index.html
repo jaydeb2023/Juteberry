@@ -165,12 +165,21 @@
             overflow-x: hidden;
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           HIDE BOTPRESS DEFAULT LAUNCHER
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        #bp-web-widget-container {
-            display: none !important;
-        }
+     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   HIDE BOTPRESS DEFAULT LAUNCHER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#bp-web-widget-container,
+#bp-web-widget-container *,
+[id^="bp-web-widget"],
+[class^="bpw-"],
+[class*=" bpw-"],
+iframe[src*="botpress"],
+iframe[src*="bpcontent"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
 
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
            HEADER GLASSMORPHISM
