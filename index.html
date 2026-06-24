@@ -173,8 +173,16 @@
 [id^="bp-web-widget"],
 [class^="bpw-"],
 [class*=" bpw-"],
+[class^="bp"],
 iframe[src*="botpress"],
-iframe[src*="bpcontent"] {
+iframe[src*="bpcontent"],
+.bpFabContainer,
+.bpFab,
+.bpLauncher,
+div[class*="Fab"],
+div[class*="fab"],
+div[class*="launcher"],
+div[class*="Launcher"] {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
