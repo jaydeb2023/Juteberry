@@ -169,20 +169,14 @@
    HIDE BOTPRESS DEFAULT LAUNCHER
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #bp-web-widget-container,
-#bp-web-widget-container *,
 [id^="bp-web-widget"],
 [class^="bpw-"],
 [class*=" bpw-"],
-[class^="bp"],
 iframe[src*="botpress"],
 iframe[src*="bpcontent"],
 .bpFabContainer,
 .bpFab,
-.bpLauncher,
-div[class*="Fab"],
-div[class*="fab"],
-div[class*="launcher"],
-div[class*="Launcher"] {
+.bpLauncher {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -1475,27 +1469,22 @@ div[class*="Launcher"] {
         });
 
         // ─── openChat — opens Botpress ────────────
-        function openChat() {
-            // Hide notification badge
-            const notif = document.getElementById('jbNotif');
-            if (notif) notif.classList.add('jb-hidden');
+     function openChat() {
+    const notif = document.getElementById('jbNotif');
+    if (notif) notif.classList.add('jb-hidden');
 
-            // Try Botpress API (loads asynchronously, so we retry if not ready)
-            if (window.botpress && window.botpress.open) {
-                window.botpress.open();
-            } else if (window.botpressWebChat && window.botpressWebChat.sendEvent) {
-                window.botpressWebChat.sendEvent({ type: 'toggle' });
-            } else {
-                // Botpress not loaded yet — show the container and wait
-                const container = document.getElementById('bp-web-widget-container');
-                if (container) {
-                    container.style.removeProperty('display');
-                    setTimeout(() => {
-                        if (window.botpress && window.botpress.open) window.botpress.open();
-                    }, 800);
-                }
-            }
+    // Show container first
+    const container = document.getElementById('bp-web-widget-container');
+    if (container) container.style.cssText = 'display:block !important; visibility:visible !important; opacity:1 !important; pointer-events:auto !important;';
+
+    setTimeout(() => {
+        if (window.botpress && window.botpress.open) {
+            window.botpress.open();
+        } else if (window.botpressWebChat) {
+            window.botpressWebChat.sendEvent({ type: 'toggle' });
         }
+    }, 300);
+}
 
         // ─── Auto-show notification badge after 8s ─
         setTimeout(() => {
