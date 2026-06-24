@@ -165,23 +165,12 @@
             overflow-x: hidden;
         }
 
-     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   HIDE BOTPRESS DEFAULT LAUNCHER
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#bp-web-widget-container,
-[id^="bp-web-widget"],
-[class^="bpw-"],
-[class*=" bpw-"],
-iframe[src*="botpress"],
-iframe[src*="bpcontent"],
-.bpFabContainer,
-.bpFab,
-.bpLauncher {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-}
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           STYLE BOTPRESS LAUNCHER GREEN
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        #bp-web-widget-container {
+            z-index: 998 !important;
+        }
 
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
            HEADER GLASSMORPHISM
@@ -1132,7 +1121,7 @@ iframe[src*="bpcontent"],
                 <p>Handcrafted jute & cotton bags. REACH certified. OEKO-TEX approved. Custom printed. Perfect for retailers who value quality and the planet.</p>
                 <div class="hero-buttons">
                     <button class="btn btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Explore Products</button>
-                    <button class="btn btn-secondary" onclick="openChat()">Explore Collection</button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Explore Collection</button>
                 </div>
                 <div class="stats-row">
                     <div class="stat">
@@ -1322,7 +1311,7 @@ iframe[src*="bpcontent"],
             <h2>Ready to Partner <em>With Juteberry?</em></h2>
             <p>Get samples in 7-10 days. Custom quotes within 24 hours. REACH certified. European retail ready.</p>
             <div class="cta-buttons">
-                <button class="btn btn-primary" onclick="openChat()">💬 Start Chat Now</button>
+                <button class="btn btn-primary" onclick="window.botpress && window.botpress.open()">💬 Start Chat Now</button>
                 <button class="btn btn-secondary" onclick="window.open('https://wa.me/918262977784?text=Hi%20Juteberry!%20I%27m%20interested%20in%20custom%20jute%20bags%20with%20samples%20and%20pricing.','_blank')">WhatsApp Quote</button>
             </div>
             <div class="cta-methods">
@@ -1433,13 +1422,7 @@ iframe[src*="bpcontent"],
             </svg>
         </a>
 
-        <!-- CHAT BUTTON — opens Botpress -->
-        <button class="chat-float" onclick="openChat()" title="Chat with JuteBot">
-            <svg class="chat-icon" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l4.93-1.37A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm1 13H9V9h2v2h2v4zm0-6h-2V7h2v2z"/>
-            </svg>
-            <span class="chat-notification" id="jbNotif">1</span>
-        </button>
+
 
         <!-- SCROLL TOP -->
         <button class="scroll-float" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
@@ -1459,38 +1442,12 @@ iframe[src*="bpcontent"],
                 if (window.scrollY > 50) header.classList.add('scrolled');
                 else header.classList.remove('scrolled');
             }
-
-            // Scroll-to-top button
             const scrollTop = document.getElementById('scrollTop');
             if (scrollTop) {
                 if (window.scrollY > 500) scrollTop.classList.add('show');
                 else scrollTop.classList.remove('show');
             }
         });
-
-        // ─── openChat — opens Botpress ────────────
-     function openChat() {
-    const notif = document.getElementById('jbNotif');
-    if (notif) notif.classList.add('jb-hidden');
-
-    // Show container first
-    const container = document.getElementById('bp-web-widget-container');
-    if (container) container.style.cssText = 'display:block !important; visibility:visible !important; opacity:1 !important; pointer-events:auto !important;';
-
-    setTimeout(() => {
-        if (window.botpress && window.botpress.open) {
-            window.botpress.open();
-        } else if (window.botpressWebChat) {
-            window.botpressWebChat.sendEvent({ type: 'toggle' });
-        }
-    }, 300);
-}
-
-        // ─── Auto-show notification badge after 8s ─
-        setTimeout(() => {
-            const notif = document.getElementById('jbNotif');
-            if (notif) notif.classList.remove('jb-hidden');
-        }, 8000);
     </script>
 
 </body>
