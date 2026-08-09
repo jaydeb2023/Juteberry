@@ -61,6 +61,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ---- Shop filters ---- */
+  const filterBtns = document.querySelectorAll('.shop-filter');
+  const productCards = document.querySelectorAll('[data-category]');
+  if (filterBtns.length && productCards.length) {
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const cat = btn.getAttribute('data-filter');
+        productCards.forEach(card => {
+          const show = cat === 'all' || card.getAttribute('data-category') === cat;
+          card.hidden = !show;
+        });
+      });
+    });
+  }
+
+  /* ---- Contact form → WhatsApp ---- */
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = contactForm.querySelector('#cf-name')?.value.trim() || '';
+      const email = contactForm.querySelector('#cf-email')?.value.trim() || '';
+      const message = contactForm.querySelector('#cf-message')?.value.trim() || '';
+      const text = `Hi Juteberry! My name is ${name} (${email}). ${message}`;
+      window.open(`https://wa.me/918262977784?text=${encodeURIComponent(text)}`, '_blank');
+    });
+  }
+
   /* ---- WhatsApp link builder ----
      Any element with [data-wa] gets its href built from the phone number
      and an optional [data-wa-product] value. */
